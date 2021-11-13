@@ -11,16 +11,16 @@ class Obj{
         textSize(12);
     }
 
-    get getX(){
+    getX(){
         return this.x;
     }
-    set setX(px){
+    setX(px){
         this.x = px;
     }
-    get getLetter(){
+    getLetter(){
         return this.letter;
     }
-    set setLetter(py){
+    setLetter(py){
         this.letter = pLetter;
     }
 }

@@ -1,9 +1,16 @@
-let matrix = [];
-let clicks = 0;
+let box = [];
+let turn = 0;
+let selected = null;
+
 function setup() {
   createCanvas(400, 400);
   for (let index = 0; index < 9; index++) {
-    matrix.push(new Array(9));
+    box.push(new Array(9));
+  }
+  for (let row = 0; row < 3; row++) {
+    for (let column = 0; column < 3; column++) {
+      box[row][column] = new Box(100 * row, 100 * column);
+    }
   }
 }
 
@@ -11,23 +18,32 @@ function draw() {
   background(220);
   for (let row = 0; row < 3; row++) {
     for (let column = 0; column < 3; column++) {
-      rect(row*100+50,column*100+50,100,100);
-      textSize(80);
+      box[row][column].draw();
+      box[row][column].showLetter();
     }
   }
 }
 
-function mousePressed(){
+function mousePressed() {
   for (let row = 0; row < 3; row++) {
     for (let column = 0; column < 3; column++) {
-      if ( row*100+50 < mouseX && mouseX < (row+1)*100+50 &&
-      column*100+50 < mouseY && mouseY < (column+1)*100+50 ) {
-        clicks ++;
-        if (!(clicks&1) === true) {
+      if (box[row][column].isOver(mouseX, mouseY)) {
+        turn++;
+        console.log(turn, " ", row, " ", column);
+        if (!(turn & 1) === true) {
+          box[row][column].setG(0);
+          box[row][column].setB(0);
+          box[row][column].setLetter("X");
+        }else{
+          box[row][column].setG(255);
+          box[row][column].setB(255);
+          box[row][column].setLetter("O");
         }
-        if (!(clicks&1) === false) {
+        if (!(turn & 1) === false) {
+          box[row][column].setR(0);
+        }else{
+          box[row][column].setR(255);
         }
-        console.log(clicks);
       }
     }
   }
