@@ -1,6 +1,7 @@
 let box = [];
 let turn = 0;
 let selected = null;
+let button = new Rbutton();
 
 function setup() {
   createCanvas(400, 400);
@@ -22,11 +23,19 @@ function draw() {
       box[row][column].showLetter();
     }
   }
+  button.draw();
 }
 
 function mousePressed() {
   for (let row = 0; row < 3; row++) {
     for (let column = 0; column < 3; column++) {
+      if ( button.getX()-40< mouseX && mouseX < button.getX()+40
+        && button.getY()-20< mouseY && mouseY < button.getY()+20) {
+          turn=0;
+          box[row][column].setR(255);
+          box[row][column].setG(255);
+          box[row][column].setB(255);
+        }
       if (box[row][column].isOver(mouseX, mouseY)) {
         turn++;
         console.log(turn, " ", row, " ", column);
